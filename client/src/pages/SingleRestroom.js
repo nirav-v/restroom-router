@@ -41,9 +41,9 @@ export default function SingleRestroom() {
   });
 
   const restroom = data?.singleRestroom || {};
-  console.log(restroom);
+  const restroomLocation = data?.singleRestroom.location.coordinates || {};
   const reviews = data?.singleRestroom.reviews || {};
-  console.log(reviews);
+ 
 
   // logic for getting average rating
   if (reviews.length) {
@@ -170,6 +170,7 @@ export default function SingleRestroom() {
                     >
                       Save Restroom
                     </Button>
+                    <Button> <a href = {`https://www.google.com/maps/place/${restroomLocation[1]},${restroomLocation[0]}`} target="__blank" > directions</a></Button>
                   </Box>
                 </div>
                 <div className="my-5">
