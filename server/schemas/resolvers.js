@@ -17,6 +17,13 @@ const resolvers = {
       }
       return User.findOne({ email: ctx.user.email }).populate("savedRestrooms");
     },
+    allRestrooms: async () => {
+      try {
+         return await Restroom.find({})
+      } catch (error) {
+        console.log(error)
+      }
+    },
     nearbyRestrooms: async (parent, args, context) => {
       try {
         return Restroom.find({

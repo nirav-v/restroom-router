@@ -8,6 +8,8 @@ const typeDefs = gql`
     "Find the logged in user."
     me: User
 
+    allRestrooms: [Restroom]!
+
     nearbyRestrooms(lon: Float, lat: Float): [Restroom]!
 
     singleRestroom(restroomId: ID!): Restroom
@@ -58,7 +60,7 @@ const typeDefs = gql`
     keyRequired: Boolean!
     adaAccessible: Boolean!
     reviews: [Review]
-    avgRating: Int!
+    avgRating: Int
   }
 
   type Review {
