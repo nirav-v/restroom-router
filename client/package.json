@@ -19,7 +19,8 @@
     "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
     "sweetalert2": "^11.4.19",
-    "web-vitals": "^0.2.4"
+    "web-vitals": "^0.2.4",
+    "mapbox-gl": "^2.9.2"
   },
   "scripts": {
     "start": "react-scripts start",

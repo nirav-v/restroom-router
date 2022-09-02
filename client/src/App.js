@@ -11,6 +11,7 @@ import RestroomsNearYou from "./pages/RestroomsNearYou";
 import Userpage from "./pages/Userpage";
 import AddRestroom from "./pages/AddRestroom";
 import SavedRestroom from "./pages/SavedRestroom";
+import Map from "./components/Map";
 import { client } from "./util/apolloClient";
 import { AuthProvider } from "./util/auth";
 
@@ -22,6 +23,7 @@ function App() {
           <Navbar4 />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/map" element={<Map/>} />
             <Route path="/restroomsNearYou" element={<RestroomsNearYou />} />
             <Route path="/login" element={<Login2 />} />
             <Route path="/signup" element={<SignUp2 />} />
@@ -63,6 +65,7 @@ function App() {
         </AuthProvider>
       </Router>
     </ApolloProvider>
+    
   );
 }
 
