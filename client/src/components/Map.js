@@ -8,8 +8,7 @@ import { ALL_RESTROOMS } from "../util/queries";
 import { useQuery } from "@apollo/client";
 
 mapboxgl.accessToken =
-  process.env.REACT_APP_MAPBOX ||
-  "pk.eyJ1Ijoibmlydjk5IiwiYSI6ImNsN2pwenFraTBpdHUzb216bnZ2eG5ndG0ifQ.3C0GFB4RKgl-KKzKPDns0Q";
+  process.env.REACT_APP_MAPBOX 
 
 export default function Map() {
   const mapContainer = useRef(null);
