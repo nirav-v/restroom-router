@@ -13,9 +13,6 @@ mapboxgl.accessToken = process.env.REACT_APP_MAPBOX;
 
 export default function Map() {
   const userCoords = useCoords();
-  if (userCoords.coords) {
-    console.log(userCoords.coords.lat);
-  }
 
   const mapContainer = useRef(null);
   const map = useRef(null);
@@ -28,6 +25,7 @@ export default function Map() {
 
   useEffect(() => {
     if (map.current) return; // initialize map only once
+
     if (userCoords.coords) {
       map.current = new mapboxgl.Map({
         container: mapContainer.current,
@@ -54,19 +52,21 @@ export default function Map() {
               `
           <p>${rrArray[i].areaDescription}<p/>
           <a href = ${`https://www.google.com/maps/place/${rrArray[i].location.coordinates[1]},${rrArray[i].location.coordinates[0]}`} target="__blank" > directions</a>
-        
+      
         `
             )
           )
           .addTo(map.current);
       }
-    } else {
-      <h1>Map Loading..</h1>;
     }
   });
 
   useEffect(() => {
-    if (!map.current) return; // wait for map to initialize
+    if (!map.current){
+      console.log('loading')
+return <h1>loading</h1>; // wait for map to initialize
+    } 
+
     map.current.on("move", () => {
       setLng(map.current.getCenter().lng.toFixed(4));
       setLat(map.current.getCenter().lat.toFixed(4));
