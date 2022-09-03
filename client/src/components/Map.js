@@ -37,7 +37,13 @@ export default function Map() {
           //   // //Create a default Marker and add it to the map.
     new mapboxgl.Marker({ color: "black" })
       .setLngLat([rrArray[i].location.coordinates[0], rrArray[i].location.coordinates[1]])
-      .setPopup(new mapboxgl.Popup().setHTML(`<p>${rrArray[i].areaDescription}<p/>`))
+      .setPopup(new mapboxgl.Popup().setHTML(
+        `
+        <p>${rrArray[i].areaDescription}<p/>
+        <a href = ${`https://www.google.com/maps/place/${rrArray[i].location.coordinates[1]},${rrArray[i].location.coordinates[0]}`} target="__blank" > directions</a>
+      
+      `
+      ))
       .addTo(map.current);
     }
 
