@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "react-icons": "^4.4.0",
+    "react-map-gl": "^7.0.19",
     "react-native": "^0.68.2"
   }
 }
