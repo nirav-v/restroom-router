@@ -1,8 +1,11 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useMemo } from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 import { style } from "@mui/system";
 import { Marker } from "react-map-gl";
+
+import { ALL_RESTROOMS } from "../util/queries";
+import { useQuery } from "@apollo/client";
 
 mapboxgl.accessToken =
   process.env.REACT_APP_MAPBOX ||
@@ -14,6 +17,9 @@ export default function Map() {
   const [lng, setLng] = useState(-117.1611);
   const [lat, setLat] = useState(32.7157);
   const [zoom, setZoom] = useState(9);
+  const [rrArray, setrrArray] = useState();
+
+  const { loading, data, error } = useQuery(ALL_RESTROOMS);
 
   useEffect(() => {
     if (map.current) return; // initialize map only once
@@ -23,10 +29,20 @@ export default function Map() {
       center: [lng, lat],
       zoom: zoom,
     });
-    // Create a default Marker and add it to the map.
-    const marker1 = new mapboxgl.Marker({ color: "black" })
-      .setLngLat([-117.1611, 32.7157])
+  });
+
+  useEffect(() => {
+    const rrArray = data?.allRestrooms || {};
+    for (let i =0; i < rrArray.length; i++){
+      console.log(rrArray[i])
+          //   // //Create a default Marker and add it to the map.
+    new mapboxgl.Marker({ color: "black" })
+      .setLngLat([rrArray[i].location.coordinates[0], rrArray[i].location.coordinates[1]])
+      .setPopup(new mapboxgl.Popup().setHTML(`<p>${rrArray[i].areaDescription}<p/>`))
       .addTo(map.current);
+    }
+
+
   });
 
   useEffect(() => {
