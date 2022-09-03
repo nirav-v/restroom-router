@@ -14,7 +14,7 @@
     "server": "cd server && npm run watch",
     "install": "cd server && npm i && cd ../client && npm i",
     "seed": "cd server && npm run seed",
-    "build": "cd client && npm run react-scripts --max_old_space_size=4096 build"
+    "build": "cd client && npm run build"
   },
   "keywords": [],
   "author": "",
