@@ -7,10 +7,16 @@ import { Marker } from "react-map-gl";
 import { ALL_RESTROOMS } from "../util/queries";
 import { useQuery } from "@apollo/client";
 
-mapboxgl.accessToken =
-  process.env.REACT_APP_MAPBOX 
+import { useCoords } from "./nearbyRestroomsList";
+
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOX;
 
 export default function Map() {
+  const userCoords = useCoords();
+  if (userCoords.coords) {
+    console.log(userCoords.coords.lat);
+  }
+
   const mapContainer = useRef(null);
   const map = useRef(null);
   const [lng, setLng] = useState(-117.1611);
@@ -22,32 +28,41 @@ export default function Map() {
 
   useEffect(() => {
     if (map.current) return; // initialize map only once
-    map.current = new mapboxgl.Map({
-      container: mapContainer.current,
-      style: "mapbox://styles/mapbox/streets-v11",
-      center: [lng, lat],
-      zoom: zoom,
-    });
+    if (userCoords.coords) {
+      map.current = new mapboxgl.Map({
+        container: mapContainer.current,
+        style: "mapbox://styles/mapbox/streets-v11",
+        center: [userCoords.coords.lon, userCoords.coords.lat],
+        zoom: zoom,
+      });
+    }
   });
 
   useEffect(() => {
-    const rrArray = data?.allRestrooms || {};
-    for (let i =0; i < rrArray.length; i++){
-      console.log(rrArray[i])
-          //   // //Create a default Marker and add it to the map.
-    new mapboxgl.Marker({ color: "black" })
-      .setLngLat([rrArray[i].location.coordinates[0], rrArray[i].location.coordinates[1]])
-      .setPopup(new mapboxgl.Popup().setHTML(
+    if (userCoords.coords) {
+      const rrArray = data?.allRestrooms || {};
+      for (let i = 0; i < rrArray.length; i++) {
+        //console.log(rrArray[i])
+        //   // //Create a default Marker and add it to the map.
+        new mapboxgl.Marker({ color: "black" })
+          .setLngLat([
+            rrArray[i].location.coordinates[0],
+            rrArray[i].location.coordinates[1],
+          ])
+          .setPopup(
+            new mapboxgl.Popup().setHTML(
+              `
+          <p>${rrArray[i].areaDescription}<p/>
+          <a href = ${`https://www.google.com/maps/place/${rrArray[i].location.coordinates[1]},${rrArray[i].location.coordinates[0]}`} target="__blank" > directions</a>
+        
         `
-        <p>${rrArray[i].areaDescription}<p/>
-        <a href = ${`https://www.google.com/maps/place/${rrArray[i].location.coordinates[1]},${rrArray[i].location.coordinates[0]}`} target="__blank" > directions</a>
-      
-      `
-      ))
-      .addTo(map.current);
+            )
+          )
+          .addTo(map.current);
+      }
+    } else {
+      <h1>Map Loading..</h1>;
     }
-
-
   });
 
   useEffect(() => {
