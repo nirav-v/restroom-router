@@ -23,7 +23,7 @@ export default function Navbar4() {
             direction="row"
             justifyContent="space-between"
           >
-            <div style={{ padding: "18px 20px 0px 20px", color: 'black' }}>
+            <div style={{ padding: "18px 20px 0px 20px", color: "black" }}>
               <h1>Restroom Router</h1>
             </div>
             <Stack direction={{ xs: "column", sm: "row" }}>
@@ -42,6 +42,20 @@ export default function Navbar4() {
                     href="/userpage"
                   >
                     User Home
+                  </Button>
+                  <Button
+                    sx={{
+                      py: 2,
+                      mx: 2,
+                      my: 0,
+                      color: "black",
+                      display: "block",
+                      fontWeight: "bold",
+                    }}
+                    size="large"
+                    href="/map"
+                  >
+                    Map
                   </Button>
                   <Button
                     sx={{
