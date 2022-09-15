@@ -12,35 +12,35 @@ import { useCoords } from "./nearbyRestroomsList";
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX;
 
 export default function Map() {
-  const userCoords = useCoords();
+  const userCoords = useCoords(); // calling the use coords function attempts to get user's location
 
   const mapContainer = useRef(null);
   const map = useRef(null);
   const [lng, setLng] = useState(-117.1611);
   const [lat, setLat] = useState(32.7157);
   const [zoom, setZoom] = useState(9);
-  const [rrArray, setrrArray] = useState();
 
   const { loading, data, error } = useQuery(ALL_RESTROOMS);
 
+
   useEffect(() => {
+
     if (map.current) return; // initialize map only once
 
     if (userCoords.coords) {
       map.current = new mapboxgl.Map({
         container: mapContainer.current,
         style: "mapbox://styles/mapbox/streets-v11",
-        center: [userCoords.coords.lon, userCoords.coords.lat],
+        center: [userCoords.coords.lon, userCoords.coords.lat], //center the map around the users coords after they load
         zoom: zoom,
       });
     }
-  });
+  }, [userCoords.coords, data?.allRestrooms, zoom]);
 
   useEffect(() => {
     if (userCoords.coords) {
       const rrArray = data?.allRestrooms || {};
       for (let i = 0; i < rrArray.length; i++) {
-        //console.log(rrArray[i])
         //   // //Create a default Marker and add it to the map.
         new mapboxgl.Marker({ color: "black" })
           .setLngLat([
@@ -62,10 +62,10 @@ export default function Map() {
   });
 
   useEffect(() => {
-    if (!map.current){
-      console.log('loading')
-return <h1>loading</h1>; // wait for map to initialize
-    } 
+    if (!map.current) {
+      
+      return; // wait for map to initialize
+    }
 
     map.current.on("move", () => {
       setLng(map.current.getCenter().lng.toFixed(4));
@@ -73,6 +73,7 @@ return <h1>loading</h1>; // wait for map to initialize
       setZoom(map.current.getZoom().toFixed(2));
     });
   });
+
 
   const mapStyle = {
     height: "400px",
@@ -102,6 +103,8 @@ return <h1>loading</h1>; // wait for map to initialize
 
   return (
     <div>
+      {userCoords.pending ?  <h2>Please wait a few seconds while we locate you and load the map :)</h2> : null} 
+     
       <div className="sidebar" style={sidebarStyle}>
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div>
