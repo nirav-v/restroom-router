@@ -14,10 +14,14 @@ import SavedRestroom from "./pages/SavedRestroom";
 import Map from "./components/Map";
 import { client } from "./util/apolloClient";
 import { AuthProvider } from "./util/auth";
+import GetRestroomApi from "./components/GetApiRestrooms";
 
 function App() {
+  
   return (
+    
     <ApolloProvider client={client}>
+      <GetRestroomApi/>
       <Router>
         <AuthProvider>
           <Navbar4 />
