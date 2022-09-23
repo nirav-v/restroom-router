@@ -14,20 +14,17 @@ import SavedRestroom from "./pages/SavedRestroom";
 import Map from "./components/Map";
 import { client } from "./util/apolloClient";
 import { AuthProvider } from "./util/auth";
-import GetRestroomApi from "./components/GetApiRestrooms";
+import { useEffect } from "react";
 
 function App() {
-  
   return (
-    
     <ApolloProvider client={client}>
-      <GetRestroomApi/>
       <Router>
         <AuthProvider>
           <Navbar4 />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/map" element={<Map/>} />
+            <Route path="/map" element={<Map />} />
             <Route path="/restroomsNearYou" element={<RestroomsNearYou />} />
             <Route path="/login" element={<Login2 />} />
             <Route path="/signup" element={<SignUp2 />} />
@@ -69,7 +66,6 @@ function App() {
         </AuthProvider>
       </Router>
     </ApolloProvider>
-    
   );
 }
 
