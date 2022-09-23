@@ -10,7 +10,7 @@ db.once("open", async () => {
   await Restroom.create(restroomSeeds);
 
   var url =
-    "https://www.refugerestrooms.org/api/v1/restrooms/by_location?page=1&per_page=10&offset=0&ada=false&unisex=false&lat=37.3387&lng=-121.8853";
+    "https://www.refugerestrooms.org/api/v1/restrooms?page=1&per_page=100&ada=false&unisex=false";
   // fetching restroom api data, returned as array of objects
   try {
     const response = await fetch(url);
