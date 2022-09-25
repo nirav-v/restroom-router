@@ -71,7 +71,15 @@ export default function AddReviewForm() {
       }
     }
     else {
-      alert('please sign in to leave your review')
+       Swal.fire({
+          icon: "error",
+          title: 'Please log in or create a free account to review this restroom :)',
+          // text: error,
+          backdrop: `
+            rgba(0,0,123,0.4)
+            `,
+        });
+      
     }
 
     setFormState({
