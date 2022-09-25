@@ -41,9 +41,7 @@ function App() {
             <Route
               path="/singleRestroom/:restroomId"
               element={
-                <RequireAuth>
                   <SingleRestroom />
-                </RequireAuth>
               }
             />
             <Route

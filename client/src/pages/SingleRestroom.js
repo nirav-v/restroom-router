@@ -25,6 +25,9 @@ import { SAVE_RESTROOM } from "../util/mutations";
 import AddReviewForm from "../components/AddReviewForm";
 // import { VariablesInAllowedPositionRule } from "graphql";
 
+// check if user is logged in
+import { useAuth } from "../util/auth";
+
 const styles = {
   paperContainer: {
     backgroundImage: `url(${rolls})`,
@@ -34,6 +37,7 @@ const styles = {
 };
 
 export default function SingleRestroom() {
+  const { isLoggedIn } = useAuth();
   const [saveRestroom, saveRestroomState] = useMutation(SAVE_RESTROOM);
   const { restroomId } = useParams();
   const { loading, data } = useQuery(SINGLERESTROOM, {
@@ -43,7 +47,6 @@ export default function SingleRestroom() {
   const restroom = data?.singleRestroom || {};
   const restroomLocation = data?.singleRestroom.location.coordinates || {};
   const reviews = data?.singleRestroom.reviews || {};
- 
 
   // logic for getting average rating
   if (reviews.length) {
@@ -55,34 +58,39 @@ export default function SingleRestroom() {
   }
 
   const handleSaveRestroom = async (restroomId) => {
-    try {
-      await saveRestroom({
-        variables: {
-          id: restroomId,
-        },
-      });
-      // alert("Restroom has been saved successfully!");
-      Swal.fire({
-        icon: "success",
-        title: "Restroom has been saved successfully!",
-        backdrop: `
-          rgba(0,0,123,0.4)
-          url(${cat})
-          left top
-          no-repeat
-          `,
-      });
-    } catch (error) {
-      console.log(error);
-      // alert("Error, please try again later");
-      Swal.fire({
-        icon: "error",
-        title: "Error, please try again later",
-        // text: error,
-        backdrop: `
-          rgba(0,0,123,0.4)
-          `,
-      });
+    if (isLoggedIn){
+      try {
+        await saveRestroom({
+          variables: {
+            id: restroomId,
+          },
+        });
+        // alert("Restroom has been saved successfully!");
+        Swal.fire({
+          icon: "success",
+          title: "Restroom has been saved successfully!",
+          backdrop: `
+            rgba(0,0,123,0.4)
+            url(${cat})
+            left top
+            no-repeat
+            `,
+        });
+      } catch (error) {
+        console.log(error);
+        // alert("Error, please try again later");
+        Swal.fire({
+          icon: "error",
+          title: "Error, please try again later",
+          // text: error,
+          backdrop: `
+            rgba(0,0,123,0.4)
+            `,
+        });
+      }
+    }
+    else {
+      alert('please sign in to save restroom')
     }
   };
 
@@ -170,7 +178,16 @@ export default function SingleRestroom() {
                     >
                       Save Restroom
                     </Button>
-                    <Button> <a href = {`https://www.google.com/maps/place/${restroomLocation[1]},${restroomLocation[0]}`} target="__blank" > directions</a></Button>
+                    <Button>
+                      {" "}
+                      <a
+                        href={`https://www.google.com/maps/place/${restroomLocation[1]},${restroomLocation[0]}`}
+                        target="__blank"
+                      >
+                        {" "}
+                        directions
+                      </a>
+                    </Button>
                   </Box>
                 </div>
                 <div className="my-5">
