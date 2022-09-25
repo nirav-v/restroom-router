@@ -6,9 +6,9 @@ import Rating from "@mui/material/Rating";
 import { useMutation } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import { ADD_REVIEW } from "../../util/mutations";
+import { ADD_REVIEW } from "../util/mutations";
 import Box from "@mui/material/Box";
-import cat from "../../images/cat.gif";
+import cat from "../images/cat.gif";
 import Swal from "sweetalert2";
 
 const initialFormState = {

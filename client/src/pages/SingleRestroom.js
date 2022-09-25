@@ -22,7 +22,7 @@ import ReviewList from "../components/ReviewList";
 import { SINGLERESTROOM } from "../util/queries";
 import { SAVE_RESTROOM } from "../util/mutations";
 // import { removeClientSetsFromDocument } from "@apollo/client/utilities";
-import AddReviewForm from "../components/AddReviewForm/index";
+import AddReviewForm from "../components/AddReviewForm";
 // import { VariablesInAllowedPositionRule } from "graphql";
 
 const styles = {
