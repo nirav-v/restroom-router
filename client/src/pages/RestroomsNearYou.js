@@ -1,5 +1,5 @@
 import React from "react";
-import NearbyRestroomList from "../components/nearbyRestroomsList";
+import NearbyRestroomList from "../components/NearbyRestroomsList";
 import CssBaseline from "@mui/material/CssBaseline";
 import Alert from "@mui/material/Alert";
 import Card from "@mui/material/Card";

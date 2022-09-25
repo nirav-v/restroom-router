@@ -14,7 +14,7 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { useMutation } from "@apollo/client";
 import { CREATE_RESTROOM } from "../util/mutations";
-import { useCoords } from "../components/nearbyRestroomsList";
+import { useCoords } from "../components/NearbyRestroomsList";
 import { Switch } from "@mui/material";
 import cat from "../images/cat.gif";
 import Swal from "sweetalert2";

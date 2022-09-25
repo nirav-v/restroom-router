@@ -7,7 +7,7 @@ import { Marker } from "react-map-gl";
 import { ALL_RESTROOMS } from "../util/queries";
 import { useQuery } from "@apollo/client";
 
-import { useCoords } from "./nearbyRestroomsList";
+import { useCoords } from "./NearbyRestroomsList";
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX;
 

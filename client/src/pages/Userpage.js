@@ -10,7 +10,7 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import NearbyRestroomList from "../components/nearbyRestroomsList";
+import NearbyRestroomList from "../components/NearbyRestroomsList";
 
 const styles = {
   paperContainer: {
