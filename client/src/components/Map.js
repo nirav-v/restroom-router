@@ -4,8 +4,8 @@ import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-load
 import { style } from "@mui/system";
 import { Marker } from "react-map-gl";
 
-import { ALL_RESTROOMS } from "../util/queries";
-import { useQuery } from "@apollo/client";
+import { NEARBY_RESTROOMS } from "../util/queries";
+import { useQuery, useLazyQuery } from "@apollo/client";
 
 import { useCoords } from "./NearbyRestroomsList";
 
@@ -20,11 +20,19 @@ export default function Map() {
   const [lat, setLat] = useState(32.7157);
   const [zoom, setZoom] = useState(9);
 
-  const { loading, data, error } = useQuery(ALL_RESTROOMS);
-
+  const [getNearbyRestrooms, { loading, error, data }] =
+    useLazyQuery(NEARBY_RESTROOMS);
+  // use lazy query so we can repeatedly call getNearbyRestrooms after the users location and data loads
+  useEffect(() => {
+    if (userCoords.coords) {
+      const { lat, lon } = userCoords.coords;
+      getNearbyRestrooms({
+        variables: { lat, lon },
+      });
+    }
+  }, [userCoords.coords, getNearbyRestrooms]);
 
   useEffect(() => {
-
     if (map.current) return; // initialize map only once
 
     if (userCoords.coords) {
@@ -35,11 +43,11 @@ export default function Map() {
         zoom: zoom,
       });
     }
-  }, [userCoords.coords, data?.allRestrooms, zoom]);
+  }, [userCoords.coords, data?.nearbyRestrooms, zoom]);
 
   useEffect(() => {
     if (userCoords.coords) {
-      const rrArray = data?.allRestrooms || {};
+      const rrArray = data?.nearbyRestrooms || {};
       for (let i = 0; i < rrArray.length; i++) {
         //   // //Create a default Marker and add it to the map.
         new mapboxgl.Marker({ color: "black" })
@@ -63,7 +71,6 @@ export default function Map() {
 
   useEffect(() => {
     if (!map.current) {
-      
       return; // wait for map to initialize
     }
 
@@ -73,7 +80,6 @@ export default function Map() {
       setZoom(map.current.getZoom().toFixed(2));
     });
   });
-
 
   const mapStyle = {
     height: "400px",
@@ -103,8 +109,12 @@ export default function Map() {
 
   return (
     <div>
-      {userCoords.pending ?  <h2>Please wait a few seconds while we locate you and load the map :)</h2> : null} 
-     
+      {userCoords.pending ? (
+        <h2>
+          Please wait a few seconds while we locate you and load the map :)
+        </h2>
+      ) : null}
+
       <div className="sidebar" style={sidebarStyle}>
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div>
