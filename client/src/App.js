@@ -4,9 +4,9 @@ import Navbar from "./components/Navbar";
 // import Navbar2 from "./components/Navbar2";
 import RequireAuth from "./components/RequireAuth";
 import Home from "./pages/Home";
-import Login2 from "./pages/Login2";
+import Login from "./pages/Login";
 import SingleRestroom from "./pages/SingleRestroom";
-import SignUp2 from "./pages/SignUp2";
+import SignUp2 from "./pages/SignUp";
 import RestroomsNearYou from "./pages/RestroomsNearYou";
 import Userpage from "./pages/Userpage";
 import AddRestroom from "./pages/AddRestroom";
@@ -26,7 +26,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/map" element={<Map />} />
             <Route path="/restroomsNearYou" element={<RestroomsNearYou />} />
-            <Route path="/login" element={<Login2 />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp2 />} />
             {/* Use <RequiredAuth> for pages that should only be accessible to a
             user that has logged in.*/}
