@@ -8,8 +8,6 @@ import { useAuth } from "../util/auth";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 // import "../style/Navbar.css";
-// import { ClassNames } from "@emotion/react";
-
 export default function Navbar4() {
   const { isLoggedIn, logout } = useAuth();
   return (
