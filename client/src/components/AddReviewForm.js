@@ -36,8 +36,7 @@ export default function AddReviewForm() {
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     console.log(formState);
-    if (isLoggedIn){
-
+    if (isLoggedIn) {
       try {
         await addReview({
           variables: {
@@ -69,17 +68,16 @@ export default function AddReviewForm() {
             `,
         });
       }
-    }
-    else {
-       Swal.fire({
-          icon: "error",
-          title: 'Please log in or create a free account to review this restroom :)',
-          // text: error,
-          backdrop: `
+    } else {
+      Swal.fire({
+        icon: "error",
+        title:
+          "Please log in or create a free account to review this restroom :)",
+        // text: error,
+        backdrop: `
             rgba(0,0,123,0.4)
             `,
-        });
-      
+      });
     }
 
     setFormState({

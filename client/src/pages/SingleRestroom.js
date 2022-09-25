@@ -90,7 +90,15 @@ export default function SingleRestroom() {
       }
     }
     else {
-      alert('please sign in to save restroom')
+       Swal.fire({
+        icon: "error",
+        title:
+          "Please log in OR create a free account to save this restroom :)",
+        // text: error,
+        backdrop: `
+            rgba(0,0,123,0.4)
+            `,
+      });
     }
   };
 
