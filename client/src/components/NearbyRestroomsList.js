@@ -104,7 +104,9 @@ export default function NearbyRestroomList() {
         fontSize: "20px",
       }}
     >
-          {!restrooms.length ? <p>Sorry, we would not locate any restrooms near you</p> : null} 
+      {!restrooms.length ? (
+        <p>Sorry, we would not locate any restrooms near you</p>
+      ) : null}
       {restrooms &&
         restrooms.map((restroom) => (
           <div
