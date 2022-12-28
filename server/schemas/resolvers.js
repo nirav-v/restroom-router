@@ -19,9 +19,9 @@ const resolvers = {
     },
     allRestrooms: async () => {
       try {
-         return await Restroom.find({})
+        return await Restroom.find({});
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     },
     nearbyRestrooms: async (parent, args, context) => {
